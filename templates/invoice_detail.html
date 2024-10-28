@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Invoice details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h2>Invoice Details</h2>
@@ -15,6 +16,7 @@
         <li>{{ sale['product_id'] }} - Quantity: {{ sale['quantity_sold'] }}</li>
         {% endfor %}
     </ul>
+    <br>
     <a class="button" href="{{ url_for('home') }}">Home</a>
 </body>
 </html>
