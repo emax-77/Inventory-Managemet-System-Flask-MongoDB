@@ -18,6 +18,10 @@
     <button type="submit">Record Sale</button>
 </form>
 
+<a class="button" href="{{ url_for('home') }}">Home</a>
+<br>
+<br>
+
 <ul>
     {% if sales %}
         {% for sale in sales %}
