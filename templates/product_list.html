@@ -1,0 +1,29 @@
+<h2>Product List</h2>
+
+<form method="POST">
+    <label for="name">Product Name:</label>
+    <input type="text" name="name" required>
+    <label for="sku">SKU:</label>
+    <input type="text" name="sku" required>
+    <label for="category">Category:</label>
+    <input type="text" name="category" required>
+    <label for="quantity_in_stock">Quantity in Stock:</label>
+    <input type="number" name="quantity_in_stock" required>
+    <label for="price">Price:</label>
+    <input type="number" name="price" step="0.01" required>
+    <label for="description">Description:</label>
+    <textarea name="description" required></textarea>
+    <button type="submit">Add Product</button>
+</form>
+
+<a class="button" href="{{ url_for('home') }}">Home</a>
+
+<ul>
+    {% if products %}
+        {% for product in products %}
+            <li>{{ product['name'] }} - Stock: {{ product['quantity_in_stock'] }}</li>
+        {% endfor %}
+    {% else %}
+        <li>No products available</li>
+    {% endif %}
+</ul>

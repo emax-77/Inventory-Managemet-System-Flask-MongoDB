@@ -1,0 +1,18 @@
+<h2>Create Invoice</h2>
+
+<form method="POST">
+    <label for="invoice_number">Invoice Number:</label>
+    <input type="text" name="invoice_number" required>
+
+    <label for="sales">Select Sales:</label>
+    <ul>
+        {% for sale in sales %}
+        <li>
+            <input type="checkbox" name="sales" value="{{ sale['_id'] }}">
+            Product: {{ sale['product_id'] }} - Quantity: {{ sale['quantity_sold'] }}
+        </li>
+        {% endfor %}
+    </ul>
+
+    <button type="submit">Generate Invoice</button>
+</form>

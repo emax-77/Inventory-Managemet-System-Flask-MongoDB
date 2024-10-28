@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Invoice List</h1>
+    <ul>
+        {% for invoice in invoices %}
+        <li>Invoice ID: {{ invoice.id }} - Total Amount: {{ invoice.total_amount }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('create_invoice') }}">Create New Invoice</a>
+</body>
+</html>

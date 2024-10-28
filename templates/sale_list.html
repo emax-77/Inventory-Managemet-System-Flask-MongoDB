@@ -1,0 +1,28 @@
+<h2>Sales List</h2>
+
+<form method="POST">
+    <label for="product_id">Product:</label>
+    <select name="product_id">
+        {% for product_id, product_name in products.items() %}
+        <option value="{{ product_id }}">{{ product_name }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="quantity_sold">Quantity Sold:</label>
+    <input type="number" name="quantity_sold" required>
+
+    <label for="sale_date">Sale Date:</label>
+    <input type="date" name="sale_date" required>
+
+    <button type="submit">Record Sale</button>
+</form>
+
+<ul>
+    {% if sales %}
+        {% for sale in sales %}
+        <li>{{ sale['product']['name'] }} - Quantity Sold: {{ sale['quantity_sold'] }} - Date: {{ sale['sale_date'] }}</li>
+        {% endfor %}
+    {% else %}
+        <li>No sales recorded</li>
+    {% endif %}
+</ul>
