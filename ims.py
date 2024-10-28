@@ -100,6 +100,7 @@ def manage_sales():
         quantity_sold = int(request.form.get('quantity_sold'))
         sale = {
             'product_id': ObjectId(product_id),
+            'product': request.form.get('product_name'),
             'quantity_sold': quantity_sold,
             'sale_date': request.form.get('sale_date')
         }
