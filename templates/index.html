@@ -11,7 +11,7 @@
     <h1 style="text-align: center;">Inventory Management System</h1>
 
     <div class="grid-container">
-        <div class="grid-item">
+        <div class="grid-item1">
             <h2>Products</h2>
             <ul>
                 {% if products %}
@@ -29,7 +29,7 @@
             </ul>
         </div>
 
-        <div class="grid-item">
+        <div class="grid-item2">
             <h2>Sales</h2>
             <ul>
                 {% if sales %}
@@ -46,11 +46,15 @@
             </ul>
         </div>
 
-        <div class="grid-item">
+        <div class="grid-item3">
             <h2>Options</h2>
-            <a class="button" href="{{ url_for('manage_products') }}">Add new product</a>
-            <a class="button" href="{{ url_for('manage_sales') }}">Create sale</a>
-            <a class="button" href="{{ url_for('create_invoice') }}">Create invoice</a>
+            <ul>
+                <li>
+                    <a class="button" href="{{ url_for('manage_products') }}">Add new product</a>
+                    <a class="button" href="{{ url_for('manage_sales') }}">Create sale</a>
+                    <a class="button" href="{{ url_for('create_invoice') }}">Create invoice</a>
+                </li>
+            </ul>
         </div>
     </div>
 
