@@ -13,6 +13,7 @@
         <li>Invoice ID: {{ invoice.id }} - Total Amount: {{ invoice.total_amount }}</li>
         {% endfor %}
     </ul>
-    <a href="{{ url_for('create_invoice') }}">Create New Invoice</a>
+    <br>
+    <a class="button" href="{{ url_for('home') }}">Home</a>
 </body>
 </html>
