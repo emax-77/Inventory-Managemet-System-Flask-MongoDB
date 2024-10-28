@@ -12,6 +12,7 @@
 - Invoices
   
 ## What's next?
+
 - Notifications
 - Orders
-- Other features possible - will see :)
+- Other features possible
