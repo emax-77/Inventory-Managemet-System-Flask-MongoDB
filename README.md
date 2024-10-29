@@ -1,9 +1,8 @@
-***I have the same project using Django here: https://github.com/emax-77/Inventory-Management-System.git***
-
 ***The project is under construction! Some parts may not work properly.***
+***I have the same project (fully working) using Django here: https://github.com/emax-77/Inventory-Management-System.git***
 
 # Inventory Management System
-## Simple IMS for small business or home use using Flask and MongoDB
+## Simple IMS for small business using Flask and MongoDB
 
 ## Project includes:
 
@@ -14,5 +13,7 @@
 ## What's next?
 
 - Notifications
+- Invoice downloading
 - Orders
-- Other features possible
+- other features possible
+
