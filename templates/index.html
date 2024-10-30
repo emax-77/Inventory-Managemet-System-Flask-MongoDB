@@ -54,9 +54,7 @@
                         <a href="{{ url_for ('invoice_detail', invoice_id=invoice['_id']) }}">
                             Invoice nr. {{ invoice.invoice_number }}, total amount: {{ invoice.total_amount }} €
                         </a>
-                        <a href="{{ url_for ('invoice_delete', invoice_id=invoice['_id']) }}" class="delete-link">
-                            Delete
-                        </a>
+                        <a class="delete-link" href="{{ url_for('invoice_delete', invoice_id=invoice['_id']) }}">Delete</a>
                     </li>
                 {% else %}
                     <li>No invoices available.</li>
@@ -67,9 +65,3 @@
 
 </body>
 </html>
-<!-- 
-<ul>
-    {% for invoice in invoices %}
-    <li>Invoice nr: {{ invoice.invoice_number }}, Total Amount: {{ invoice.total_amount }} €</li>
-    {% endfor %}
-</ul>  -->
