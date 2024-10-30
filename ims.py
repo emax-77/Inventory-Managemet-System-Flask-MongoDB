@@ -146,11 +146,14 @@ def invoice_detail(invoice_id):
     return render_template('invoice_detail.html', invoice=invoice, sales=sales, products=products)
 
 # Invoice deletion
-@app.route('/invoice/<invoice_id>/delete', methods=['POST'])
+@app.route('/invoice/delete/<invoice_id>', methods=['GET', 'POST'])
 def invoice_delete(invoice_id):
-    mongo.db.invoices.delete_one({'_id': ObjectId(invoice_id)})
-    return redirect(url_for('manage_invoices'))
-
+    invoice = mongo.db.invoices.find_one({'_id': ObjectId(invoice_id)})
+    if request.method == 'POST':
+        mongo.db.invoices.delete_one({'_id': ObjectId(invoice_id)})
+        return redirect(url_for('home'))  
+    return render_template('invoice_confirm_delete.html', invoice=invoice)
+    
 # Invoice list
 @app.route('/invoices')
 def manage_invoices():
