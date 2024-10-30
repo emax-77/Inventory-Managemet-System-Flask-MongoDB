@@ -146,7 +146,7 @@ def invoice_detail(invoice_id):
 
 # Invoice deletion
 @app.route('/invoice/<invoice_id>/delete', methods=['POST'])
-def delete_invoice(invoice_id):
+def invoice_delete(invoice_id):
     mongo.db.invoices.delete_one({'_id': ObjectId(invoice_id)})
     return redirect(url_for('manage_invoices'))
 
