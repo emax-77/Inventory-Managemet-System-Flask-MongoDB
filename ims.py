@@ -102,6 +102,7 @@ def manage_sales():
         sale = {
             'product_id': ObjectId(product_id),
             'product': mongo.db.products.find_one({'_id': ObjectId(product_id)})['name'],
+            'price': mongo.db.products.find_one({'_id': ObjectId(product_id)})['price'],
             'quantity_sold': quantity_sold,
             'sale_date': request.form.get('sale_date')
         }
