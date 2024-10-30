@@ -86,14 +86,17 @@ def update_product(product_id):
         return redirect(url_for('manage_products'))
     return render_template('update_product.html', product=product)
 
-# Product deletion
-@app.route('/products/<product_id>/delete', methods=['POST'])
-def delete_product(product_id):
-    mongo.db.products.delete_one({'_id': ObjectId(product_id)})
-    return redirect(url_for('manage_products'))
+# Product delete
+@app.route('/products/delete/<product_id>', methods=['GET','POST'])
+def product_delete(product_id):
+    product = mongo.db.products.find_one({'_id': ObjectId(product_id)})
+    if request.method == 'POST':
+        mongo.db.products.delete_one({'_id': ObjectId(product_id)})
+        return redirect(url_for('home'))
+    return render_template('product_confirm_delete.html', product=product)
 
 
-# Sale creation
+# Sale create
 @app.route('/sales', methods=['GET', 'POST'])
 def manage_sales():
     if request.method == 'POST':
@@ -114,14 +117,14 @@ def manage_sales():
     products = {str(product['_id']): product['name'] for product in mongo.db.products.find()}
     return render_template('sale_list.html', sales=sales, products=products)
 
-# Sale deletion
+# Sale delete
 @app.route('/sales/<sale_id>/delete', methods=['POST'])
 def delete_sale(sale_id):
     mongo.db.sales.delete_one({'_id': ObjectId(sale_id)})
     return redirect(url_for('manage_sales'))
 
 
-# Invoice creation
+# Invoice create
 @app.route('/invoice/new', methods=['GET', 'POST'])
 def create_invoice():
     if request.method == 'POST':
@@ -145,7 +148,7 @@ def invoice_detail(invoice_id):
     products = {str(product['_id']): product['name'] for product in mongo.db.products.find()}
     return render_template('invoice_detail.html', invoice=invoice, sales=sales, products=products)
 
-# Invoice deletion
+# Invoice delete
 @app.route('/invoice/delete/<invoice_id>', methods=['GET', 'POST'])
 def invoice_delete(invoice_id):
     invoice = mongo.db.invoices.find_one({'_id': ObjectId(invoice_id)})
@@ -153,6 +156,8 @@ def invoice_delete(invoice_id):
         mongo.db.invoices.delete_one({'_id': ObjectId(invoice_id)})
         return redirect(url_for('home'))  
     return render_template('invoice_confirm_delete.html', invoice=invoice)
+
+
     
 # Invoice list
 @app.route('/invoices')
