@@ -10,7 +10,7 @@
     <h1>Invoice List</h1>
     <ul>
         {% for invoice in invoices %}
-        <li>Invoice ID: {{ invoice.id }} - Total Amount: {{ invoice.total_amount }}</li>
+        <li>Invoice nr: {{ invoice.invoice_number }}, Total Amount: {{ invoice.total_amount }} €</li>
         {% endfor %}
     </ul>
     <br>
