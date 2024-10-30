@@ -50,16 +50,26 @@
             <h2>Invoices <a class="button" href="{{ url_for('create_invoice') }}">Create invoice</a></h2>
             <ul>
                 {% for invoice in invoices %}
-                <li>Invoice nr: {{ invoice.invoice_number }}, Total Amount: {{ invoice.total_amount }} €</li>
+                    <li>
+                        <a href="{{ url_for ('invoice_detail', invoice_id=invoice['_id']) }}">
+                            Invoice nr. {{ invoice.invoice_number }}, total amount: {{ invoice.total_amount }} €
+                        </a>
+                        <a href="{{ url_for ('invoice_delete', invoice_id=invoice['_id']) }}" class="delete-link">
+                            Delete
+                        </a>
+                    </li>
+                {% else %}
+                    <li>No invoices available.</li>
                 {% endfor %}
-            </ul>        
+            </ul>       
         </div>
     </div>
 
 </body>
 </html>
 <!-- 
-<a class="button" href="{{ url_for('manage_products') }}">Add product</a>
-                    <a class="button" href="{{ url_for('manage_sales') }}">Create sale</a>
-                    <a class="button" href="{{ url_for('create_invoice') }}">Create invoice</a>
-                    <a class="button" href="{{ url_for('manage_invoices') }}">View invoices</a> -->
+<ul>
+    {% for invoice in invoices %}
+    <li>Invoice nr: {{ invoice.invoice_number }}, Total Amount: {{ invoice.total_amount }} €</li>
+    {% endfor %}
+</ul>  -->
