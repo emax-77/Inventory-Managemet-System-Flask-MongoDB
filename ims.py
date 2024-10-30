@@ -35,7 +35,8 @@ def test_db():
 def home():
     products = mongo.db.products.find()
     sales = mongo.db.sales.find()
-    return render_template('index.html', products=products, sales=sales)
+    invoices = mongo.db.invoices.find()
+    return render_template('index.html', products=products, sales=sales, invoices=invoices)
 
 # Product creation
 @app.route('/products', methods=['GET', 'POST'])
