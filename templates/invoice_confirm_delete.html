@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirm Invoice Deletion</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Confirm Invoice Deletion</h1>
     <p style="text-align: center;">Are you sure you want to delete the invoice nr. <strong>"{{ invoice.invoice_number }}"</strong>?</p>
-    <form method="post">
-        <button type="submit" class="button">Yes, delete</button>
+    <form method="POST">
+        <button type="submit" class="button delete-button">Delete</button>
         <br>
-        <a href="{% url_for 'invoice_list' %}" class="button button-secondary">Cancel</a>
+        <a href="{{ url_for ('home') }}" class="button button-secondary">Cancel</a>
     </form>
 </body>
 </html>
