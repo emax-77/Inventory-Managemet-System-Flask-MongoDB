@@ -7,16 +7,24 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h2>Invoice Details</h2>
-    <p>Invoice Number: {{ invoice['invoice_number'] }}</p>
-    <p>Total Amount: {{ invoice['total_amount'] }}</p>
-    <p>Sales:</p>
-    <ul>
-        {% for sale in invoice['sales'] %}
-        <li>{{ sale['product_id'] }} - Quantity: {{ sale['quantity_sold'] }}</li>
-        {% endfor %}
-    </ul>
-    <br>
-    <a class="button" href="{{ url_for('home') }}">Home</a>
+    <div class="invoice-detail">
+        <h1>Invoice Details</h1>
+
+        <p>Invoice Number: <strong>{{ invoice['invoice_number'] }}</strong></p>
+        <p>Total Amount: {{ invoice['total_amount'] }} €</p>
+
+        <h3>Sales</h3>
+        <ul>
+            {% for sale in sales %}
+            <li>{{ sale['product'] }}, Quantity: {{ sale['quantity_sold'] }}, Price: {{ sale['price'] }} €</li>
+            {% endfor %}
+        </ul>
+        <form method="post">
+            <button type="submit" class="button">Download Invoice</button>
+            <br>
+        </form>
+        <a class="button" href="{{ url_for('home') }}">Home</a>
+    </div>
 </body>
 </html>
+
