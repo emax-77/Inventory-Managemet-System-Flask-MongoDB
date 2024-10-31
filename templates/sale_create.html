@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<h1>Sales List</h1>
+<h1>Create Sale</h1>
 
 <form method="POST">
     <label for="product_id">Product:</label>
@@ -16,18 +16,8 @@
     <input type="date" name="sale_date" required>
 
     <button type="submit">Record Sale</button>
+    <br>
+    <a class="button" href="{{ url_for('home') }}">Cancel</a>
 </form>
 
-<a class="button" href="{{ url_for('home') }}">Home</a>
-<br>
-<br>
 
-<ul>
-    {% if sales %}
-        {% for sale in sales %}
-        <li>{{ sale['product']['name'] }} - Quantity Sold: {{ sale['quantity_sold'] }} - Date: {{ sale['sale_date'] }}</li>
-        {% endfor %}
-    {% else %}
-        <li>No sales recorded</li>
-    {% endif %}
-</ul>

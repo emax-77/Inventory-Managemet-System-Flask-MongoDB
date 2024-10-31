@@ -98,7 +98,7 @@ def product_delete(product_id):
 
 # Sale create
 @app.route('/sales', methods=['GET', 'POST'])
-def manage_sales():
+def sale_create():
     if request.method == 'POST':
         product_id = request.form.get('product_id')
         quantity_sold = int(request.form.get('quantity_sold'))
@@ -110,12 +110,12 @@ def manage_sales():
             'sale_date': request.form.get('sale_date')
         }
         mongo.db.sales.insert_one(sale)
-        return redirect(url_for('manage_sales'))
+        return redirect(url_for('home'))
 
     # List all sales
     sales = mongo.db.sales.find()
     products = {str(product['_id']): product['name'] for product in mongo.db.products.find()}
-    return render_template('sale_list.html', sales=sales, products=products)
+    return render_template('sale_create.html', sales=sales, products=products)
 
 # Sale delete
 @app.route('/sales/<sale_id>/delete', methods=['POST'])
