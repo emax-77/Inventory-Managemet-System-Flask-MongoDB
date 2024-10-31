@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Product Deletion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Confirm Sale Deletion</h1>
+    <p style="text-align: center;">Are you sure you want to delete the sale <strong>"{{ sale }}"</strong>?</p>
+    <form method="POST">
+        <button type="submit" class="button delete-button">Delete</button>
+        <br>
+        <a href="{{ url_for ('home') }}" class="button button-secondary">Cancel</a>
+    </form>
+</body>
+</html>

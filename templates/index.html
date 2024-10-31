@@ -36,7 +36,7 @@
                     {% for sale in sales %}
                     <li>{{ sale['product']['name'] }} - Quantity Sold: {{ sale['quantity_sold'] }} - Date: {{ sale['sale_date'] }}
                         <div class="action-links">
-                            <a class="delete-link" href="{{ url_for ('delete_sale', sale_id=sale['id']) }}">Delete</a>
+                            <a class="delete-link" href="{{ url_for ('sale_delete', sale_id=sale['_id']) }}">Delete</a>
                         </div>
                     </li>
                     {% endfor %}

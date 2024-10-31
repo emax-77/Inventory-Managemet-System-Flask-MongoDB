@@ -30,7 +30,7 @@ def test_db():
     except Exception as e:
         return f"An error occurred: {e}"
 
-# Home page
+# Home page - List all products, sales, and invoices
 @app.route('/')
 def home():
     products = mongo.db.products.find()
@@ -38,7 +38,7 @@ def home():
     invoices = mongo.db.invoices.find()
     return render_template('index.html', products=products, sales=sales, invoices=invoices)
 
-# Product creation
+# Product Create
 @app.route('/products', methods=['GET', 'POST'])
 def manage_products():
     if request.method == 'POST':
@@ -118,11 +118,13 @@ def sale_create():
     return render_template('sale_create.html', sales=sales, products=products)
 
 # Sale delete
-@app.route('/sales/<sale_id>/delete', methods=['POST'])
-def delete_sale(sale_id):
-    mongo.db.sales.delete_one({'_id': ObjectId(sale_id)})
-    return redirect(url_for('manage_sales'))
-
+@app.route('/sales/delete/<sale_id>', methods=['GET','POST'])
+def sale_delete(sale_id):
+    sale = mongo.db.sales.find_one({'_id': ObjectId(sale_id)})
+    if request.method == 'POST':
+        mongo.db.sales.delete_one({'_id': ObjectId(sale_id)})
+        return redirect(url_for('home'))
+    return render_template('sale_confirm_delete.html', sale=sale)
 
 # Invoice create
 @app.route('/invoice/new', methods=['GET', 'POST'])
@@ -157,8 +159,7 @@ def invoice_delete(invoice_id):
         return redirect(url_for('home'))  
     return render_template('invoice_confirm_delete.html', invoice=invoice)
 
-
-    
+  
 # Invoice list
 @app.route('/invoices')
 def manage_invoices():
