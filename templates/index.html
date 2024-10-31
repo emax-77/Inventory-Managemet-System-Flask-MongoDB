@@ -18,7 +18,7 @@
                     {% for product in products %}
                         <li>{{ product['name'] }} - Stock: {{ product['quantity_in_stock'] }}
                             <div class="action-links">
-                                <a href="{{ url_for('update_product', product_id=product['id']) }}">Edit</a>
+                                <a href="{{ url_for('product_update', product_id=product['_id']) }}">Edit</a>
                                 <a class="delete-link" href="{{ url_for ('product_delete', product_id=product['_id']) }}">Delete</a>
                             </div>                     
                         </li>

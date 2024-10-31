@@ -57,7 +57,7 @@ def manage_products():
                      'description': description}
         # Insert the product into the database
         mongo.db.products.insert_one(product)
-        return redirect(url_for('manage_products'))
+        return redirect(url_for('home'))
 
     # List all products
     products = mongo.db.products.find()
@@ -65,7 +65,7 @@ def manage_products():
 
 # Product update / edit
 @app.route('/products/<product_id>', methods=['GET', 'POST'])
-def update_product(product_id):
+def product_update(product_id):
     product = mongo.db.products.find_one({'_id': ObjectId(product_id)})
     if request.method == 'POST':
         product_name = request.form.get('name')
@@ -83,8 +83,8 @@ def update_product(product_id):
             'description': description
         }
         mongo.db.products.update_one({'_id': ObjectId(product_id)}, {'$set': product})
-        return redirect(url_for('manage_products'))
-    return render_template('update_product.html', product=product)
+        return redirect(url_for('home'))
+    return render_template('product_update.html', product=product)
 
 # Product delete
 @app.route('/products/delete/<product_id>', methods=['GET','POST'])
