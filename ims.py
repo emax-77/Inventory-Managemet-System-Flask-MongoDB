@@ -61,7 +61,7 @@ def manage_products():
 
     # List all products
     products = mongo.db.products.find()
-    return render_template('product_list.html', products=products)
+    return render_template('product_add_new.html', products=products)
 
 # Product update / edit
 @app.route('/products/<product_id>', methods=['GET', 'POST'])

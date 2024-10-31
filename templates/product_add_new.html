@@ -16,19 +16,6 @@
     <textarea name="description" required></textarea>
     <button type="submit">Add Product</button>
     <br>
-    <a href="{{ url_for ('home') }}" class="button button-secondary">Home</a>
+    <a href="{{ url_for ('home') }}" class="button button-secondary">Cancel</a>
 </form>
 
-
-
-<h1>Products</h1>
-
-<ul>
-    {% if products %}
-        {% for product in products %}
-            <li>{{ product['name'] }}, Stock: {{ product['quantity_in_stock'] }}, SKU: {{ product['sku'] }}, Category: {{ product['category'] }}, Price: {{ product['price'] }}, Description: {{ product['description'] }} </li>
-        {% endfor %}
-    {% else %}
-        <li>No products available</li>
-    {% endif %}
-</ul>
