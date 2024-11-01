@@ -11,7 +11,7 @@
         {% for sale in sales %}
         <li>
             <input type="checkbox" name="sales" value="{{ sale['_id'] }}">
-            Product ID: {{ sale['product_id'] }}, Product: {{ sale['product'] }}, Quantity: {{ sale['quantity_sold'] }}
+             Product: {{ sale['product'] }}, Quantity: {{ sale['quantity_sold'] }}
         </li>
         {% endfor %}
     </ul>
