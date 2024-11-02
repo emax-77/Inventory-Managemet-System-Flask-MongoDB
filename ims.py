@@ -109,6 +109,9 @@ def sale_create():
             'quantity_sold': quantity_sold,
             'sale_date': request.form.get('sale_date')
         }
+        # Update product quantity_in_stock (decrease by quantity_sold)
+        mongo.db.products.update_one({'_id': ObjectId(product_id)}, {'$inc': {'quantity_in_stock': -quantity_sold}})
+        
         mongo.db.sales.insert_one(sale)
         return redirect(url_for('home'))
 
