@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, Response, render_template, request, redirect, url_for, json
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+
 
 app = Flask(__name__)
 
@@ -40,7 +41,7 @@ def home():
 
 # Product Create
 @app.route('/products', methods=['GET', 'POST'])
-def manage_products():
+def product_create():
     if request.method == 'POST':
         # Add new product
         product_name = request.form.get('name')
@@ -59,7 +60,6 @@ def manage_products():
         mongo.db.products.insert_one(product)
         return redirect(url_for('home'))
 
-    # List all products
     products = mongo.db.products.find()
     return render_template('product_add_new.html', products=products)
 
@@ -134,7 +134,7 @@ def sale_delete(sale_id):
 
 # Invoice create
 @app.route('/invoice/new', methods=['GET', 'POST'])
-def create_invoice():
+def invoice_create():
     if request.method == 'POST':
         sale_ids = request.form.getlist('sales')
         sales = [ObjectId(sale_id) for sale_id in sale_ids]
@@ -149,11 +149,46 @@ def create_invoice():
     return render_template('invoice_form.html', sales=sales)
 
 # Invoice detail
-@app.route('/invoice/<invoice_id>')
+@app.route('/invoice/<invoice_id>', methods=['GET', 'POST'])
 def invoice_detail(invoice_id):
+    if request.method == 'POST':
+        # Fetch the invoice and related sales
+        invoice = mongo.db.invoices.find_one({'_id': ObjectId(invoice_id)})
+        sales = mongo.db.sales.find({'_id': {'$in': invoice['sales']}})
+        
+        # Create a list of product details for each sale item
+        product_details = []
+        for sale in sales:
+            product = mongo.db.products.find_one({'_id': sale['product_id']})
+            if product:            
+                product_details.append({
+                    'name': product['name'],
+                    'quantity': sale.get('quantity_sold',0)                 
+                })
+
+        # Create the invoice dictionary with product details
+        invoice_dict = {
+            'invoice_number': invoice['invoice_number'],
+            'total_amount': invoice['total_amount'],
+            'products': product_details
+        }
+
+        # Convert dictionary to JSON string
+        invoice_json = json.dumps(invoice_dict)
+
+        # Create the response object and set headers with invoice number as filename
+        filename = f"invoice_{invoice['invoice_number']}.json"
+        response = Response(invoice_json, mimetype='application/json')
+        response.headers['Content-Disposition'] = f'attachment; filename={filename}'
+
+        # Return the response to trigger the file download
+        return response
+
+    
     invoice = mongo.db.invoices.find_one({'_id': ObjectId(invoice_id)})
     sales = mongo.db.sales.find({'_id': {'$in': invoice['sales']}})
     products = {str(product['_id']): product['name'] for product in mongo.db.products.find()}
+
     return render_template('invoice_detail.html', invoice=invoice, sales=sales, products=products)
 
 # Invoice delete
@@ -164,7 +199,6 @@ def invoice_delete(invoice_id):
         mongo.db.invoices.delete_one({'_id': ObjectId(invoice_id)})
         return redirect(url_for('home'))  
     return render_template('invoice_confirm_delete.html', invoice=invoice)
-
   
 # Invoice list
 @app.route('/invoices')

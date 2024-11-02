@@ -12,7 +12,7 @@
 
     <div class="grid-container">
         <div class="grid-item1">
-            <h2>Products <a class="button" href="{{ url_for('manage_products') }}">Add product</a></h2>
+            <h2>Products <a class="button" href="{{ url_for('product_create') }}">Add product</a></h2>
             <ul>
                 {% if products %}
                     {% for product in products %}
@@ -47,7 +47,7 @@
         </div>
 
         <div class="grid-item3">
-            <h2>Invoices <a class="button" href="{{ url_for('create_invoice') }}">Create invoice</a></h2>
+            <h2>Invoices <a class="button" href="{{ url_for('invoice_create') }}">Create invoice</a></h2>
             <ul>
                 {% for invoice in invoices %}
                     <li>

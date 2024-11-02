@@ -19,9 +19,8 @@
             <li>{{ sale['product'] }}, Quantity: {{ sale['quantity_sold'] }}, Price: {{ sale['price'] }} €</li>
             {% endfor %}
         </ul>
-        <form method="post">
-            <button type="submit" class="button">Download Invoice</button>
-            <br>
+        <form method="post" action="{{ url_for('invoice_detail', invoice_id=invoice['_id']) }}">
+            <button class="button" type="submit">Download Invoice</button>
         </form>
         <a class="button" href="{{ url_for('home') }}">Home</a>
     </div>
