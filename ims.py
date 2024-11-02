@@ -111,7 +111,7 @@ def sale_create():
         }
         # Update product quantity_in_stock (decrease by quantity_sold)
         mongo.db.products.update_one({'_id': ObjectId(product_id)}, {'$inc': {'quantity_in_stock': -quantity_sold}})
-        
+
         mongo.db.sales.insert_one(sale)
         return redirect(url_for('home'))
 
@@ -125,6 +125,9 @@ def sale_create():
 def sale_delete(sale_id):
     sale = mongo.db.sales.find_one({'_id': ObjectId(sale_id)})
     if request.method == 'POST':
+        # Update product quantity_in_stock
+        mongo.db.products.update_one({'_id': sale['product_id']}, {'$inc': {'quantity_in_stock': sale['quantity_sold']}})
+        # Delete the sale
         mongo.db.sales.delete_one({'_id': ObjectId(sale_id)})
         return redirect(url_for('home'))
     return render_template('sale_confirm_delete.html', sale=sale)
