@@ -133,7 +133,7 @@ def product_update(product_id):
         }
         # Update the product in the database and check stock level
         mongo.db.products.update_one({'_id': ObjectId(product_id)}, {'$set': product})
-        check_stock_level(product_id=product['_id'])
+        check_stock_level(product_id=product_id)
         return redirect(url_for('home'))
     return render_template('product_update.html', product=product)
 
