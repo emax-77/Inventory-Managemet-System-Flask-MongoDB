@@ -45,10 +45,8 @@ def check_stock_level(product_id):
 
         # Load SMTP settings from environment variables
         try:
-            email_username = os.getenv('EMAIL_HOST_USER')
-            email_password = os.getenv('EMAIL_HOST_PASSWORD')
-            if not email_username or not email_password:
-                raise ValueError("Email credentials are missing")
+            email_username = _require_env('EMAIL_HOST_USER')
+            email_password = _require_env('EMAIL_HOST_PASSWORD')
 
         except Exception as e:
             print(f"Error loading email credentials: {e}")
